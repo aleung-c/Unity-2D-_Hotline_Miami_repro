@@ -4,7 +4,7 @@ using System.Collections;
 public class bullet : MonoBehaviour {
 
 	public Rigidbody2D	rb;
-	private float		speed = 20f;
+	private float		speed = 15f;
 	public bool			isShot = false;
 	private	float		margin = 0.5f;
 

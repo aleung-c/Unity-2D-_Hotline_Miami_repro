@@ -22,6 +22,7 @@ public class hero : character {
 		animLegs  = this.foot.GetComponent<Animator>();
 		rb = this.GetComponent<Rigidbody2D>();
 		maxSpeed = 6.0f;
+		cam.transform.position = new Vector3 (transform.position.x, transform.position.y, cam.transform.position.z);
 	}
 
 	void FixedUpdate()
@@ -126,7 +127,7 @@ public class hero : character {
 
 			currentWeapon.GetComponent<weapon>().transform.position = transform.position;
 			currentWeapon.GetComponent<weapon>().transform.localRotation = Quaternion.identity;
-			currentWeapon.GetComponent<weapon>().transform.localPosition = new Vector2(currentWeapon.GetComponent<weapon>().spriteInHand.transform.localPosition.x + 0.1f, currentWeapon.GetComponent<weapon>().spriteInHand.transform.localPosition.y - 0.1f);
+			currentWeapon.GetComponent<weapon>().transform.localPosition = new Vector2(currentWeapon.GetComponent<weapon>().spriteInHand.transform.localPosition.x + 0.1f, currentWeapon.GetComponent<weapon>().spriteInHand.transform.localPosition.y);
 			currentWeapon.GetComponent<weapon>().transform.localScale = new Vector3 (1f, 1f, 1f);
 		}
 	}
