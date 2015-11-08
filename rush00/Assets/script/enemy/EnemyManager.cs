@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 
 public class EnemyManager : MonoBehaviour {
 	public List <enemy> 	enemy_list = new List<enemy>();
