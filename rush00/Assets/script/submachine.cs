@@ -6,7 +6,7 @@ public class submachine : weapon {
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
-		fireRate = 0.15f;
+		fireRate = 0.1f;
 		nbAmos = 80;
 		isWhiteWeapon = false;
 	}

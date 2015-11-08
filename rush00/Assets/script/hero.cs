@@ -25,10 +25,13 @@ public class hero : character {
 	}
 
 	void FixedUpdate()
-	{	
-		moveX = Input.GetAxis("Horizontal"); 
-		moveY = Input.GetAxis("Vertical"); 
-		rb.velocity = new Vector2(moveX * maxSpeed, moveY * maxSpeed);
+	{
+		if (isAlive)
+		{
+			moveX = Input.GetAxis("Horizontal"); 
+			moveY = Input.GetAxis("Vertical"); 
+			rb.velocity = new Vector2(moveX * maxSpeed, moveY * maxSpeed);
+		}
 	}
 
 	// Update is called once per frame

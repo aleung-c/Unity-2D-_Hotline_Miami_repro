@@ -6,7 +6,7 @@ public class saber : weapon {
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D>();
-		fireRate = 0.1f;
+		fireRate = 0.0f;
 		nbAmos = -1;
 		isWhiteWeapon = true;
 	}

@@ -28,7 +28,7 @@ public class enemy : character {
 
 	// Enemy patrolling;
 	private bool	patrol_set = false;
-	private int		patrol_dir = 0;
+	public int		patrol_dir = 0;
 	private float	patrol_distance = 0.0f;
 	private Vector2 patrol_point1;
 	private Vector2 patrol_point2;
