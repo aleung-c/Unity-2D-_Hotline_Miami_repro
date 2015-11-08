@@ -28,7 +28,6 @@ public class GameManager : MonoBehaviour {
 				enemy.action = false;
 			}
 
-			Debug.Log("game over");
 			if (_game_over == false)
 				death_sound.Play();
 			_game_over = true;
@@ -39,7 +38,6 @@ public class GameManager : MonoBehaviour {
 		}
 		enemy_list = EnemyManager.GetComponent<EnemyManager> ().get_current_list ();
 		int enemy_nb = enemy_list.Count ();
-		Debug.Log ("nb ennemy: " + enemy_nb);
 		if (enemy_nb == 0 && _game_over == false) { // win
 			_game_over = false;
 			if (_game_win == false)

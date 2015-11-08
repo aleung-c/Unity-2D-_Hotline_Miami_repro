@@ -16,8 +16,8 @@ public class enemy : character {
 	private Vector2		_last_known_pos = Vector2.zero;
 	// eneme states //
 	public bool			dead = false;
-	public float		speed = 0.5F;
-	public float		speed_alert = 2.0F;
+	private float		speed = 0.8F;
+	private float		speed_alert = 2.5F;
 	public float		attack_delay = 30.0f;
 
 	// player object for finding. set at start with manager.
@@ -36,10 +36,13 @@ public class enemy : character {
 	private bool	going_to_2 = false;
 
 	public bool		canShoot = true;
-	public float	fireRate = 0.5f;
+	public float	fireRate = 0.3f;
 
 	public AudioSource fire_sound;
 	public AudioSource death_sound;
+
+	private float		reactionTimer = 0.0f;
+	private float		reactionMax = 0.5f;
 
 	void OnTriggerEnter2D(Collider2D collider)
 	{
@@ -50,7 +53,6 @@ public class enemy : character {
 
 			RaycastHit2D hit = Physics2D.Raycast(obj_pos, direction, Mathf.Infinity, transform.parent.GetComponent<EnemyManager> ().LayerMaskForCollision );
 			if (hit && hit.collider.gameObject.name == "Hero") { // aucun mur trouver
-				//Debug.Log ("enemy saw hero");
 				_last_known_pos = player.transform.position;
 				alerted = true;
 				standby = false;
@@ -58,10 +60,7 @@ public class enemy : character {
 				speed = speed_alert;
 
 			}
-			//else {
-				//Debug.Log ("enemy saw " + hit.collider.gameObject.name);
-				//Debug.Log ("at " + hit.collider.gameObject.transform.position.x + "x " + hit.collider.gameObject.transform.position.y + "y.");
-			//}
+
 		}
 	}
 
@@ -74,7 +73,6 @@ public class enemy : character {
 
 	public void set_dead () {
 		dead = true;
-		Debug.Log ("ennemy dead");
 		death_sound.Play();
 		SpriteRenderer sprite = transform.FindChild ("head_enemy").GetComponent<SpriteRenderer>();
 		sprite.color = Color.red;
@@ -88,16 +86,11 @@ public class enemy : character {
 			Vector2 direction = new Vector2(collider.gameObject.transform.position.x - obj_pos.x, collider.gameObject.transform.position.y - transform.position.y);
 			RaycastHit2D hit = Physics2D.Raycast(obj_pos, direction, Mathf.Infinity, transform.parent.GetComponent<EnemyManager> ().LayerMaskForCollision );
 			if (hit && hit.collider.gameObject.name == "Hero") {
-				//Debug.Log ("enemy saw hero");
 				alerted = true;
 				standby = false;
 				patrol_set = false; // prepare new patrol when player spotted.
-				speed = 4.0F;
+				speed = 2.5F;
 				_last_known_pos = player.transform.position;
-			}
-			else {
-				//Debug.Log ("enemy saw " + hit.collider.gameObject.name);
-				Debug.Log ("at " + hit.collider.gameObject.transform.position.x + "x " + hit.collider.gameObject.transform.position.y + "y.");
 			}
 		}
 
@@ -190,26 +183,25 @@ public class enemy : character {
 	
 
 	public void check_attack() {
-//		currentWeapon.SetActive (true);
-//		currentWeapon.GetComponent<weapon> ().shoot ();
-//		currentWeapon.GetComponent<weapon> ().set_ammos (20);
-		Debug.Log (fireRate);
 		if (canShoot) {
-
-			fire_sound.Play ();
-		
-			StartCoroutine (canShootCoroutine ());
-			GameObject b = (GameObject)Instantiate (currentWeapon.GetComponent<weapon> ().bullet.gameObject, new Vector2 (transform.position.x, transform.position.y + 0.5f), currentWeapon.GetComponent<weapon> ().bullet.gameObject.transform.localRotation);
-		
-			b.GetComponent<bullet> ().isShot = true;
-			b.GetComponent<bullet> ().transform.parent = gameObject.transform;
-		
-			b.GetComponent<bullet> ().transform.position = transform.position;
-			b.GetComponent<bullet> ().transform.localRotation = Quaternion.Euler (0, 0, -90);
-			b.GetComponent<bullet> ().transform.localPosition = new Vector2 (b.GetComponent<bullet> ().transform.localPosition.x, b.GetComponent<bullet> ().transform.localPosition.y - 0.1f);
-			b.GetComponent<bullet> ().transform.localScale = new Vector3 (1f, 1f, 1f);
-			b.GetComponent<bullet> ().transform.parent = null;
-			StartCoroutine (goBullet (b));
+			reactionTimer += Time.deltaTime;
+			if (reactionTimer >= reactionMax)
+			{
+				fire_sound.Play ();
+			
+				StartCoroutine (canShootCoroutine ());
+				GameObject b = (GameObject)Instantiate (currentWeapon.GetComponent<weapon> ().bullet.gameObject, new Vector2 (transform.position.x, transform.position.y), currentWeapon.GetComponent<weapon> ().bullet.gameObject.transform.localRotation);
+			
+				b.GetComponent<bullet> ().isShot = true;
+				b.GetComponent<bullet> ().transform.parent = gameObject.transform;
+			
+				b.GetComponent<bullet> ().transform.position = transform.position;
+				b.GetComponent<bullet> ().transform.localRotation = Quaternion.Euler (0, 0, -90);
+				b.GetComponent<bullet> ().transform.localPosition = new Vector2 (b.GetComponent<bullet> ().transform.localPosition.x, b.GetComponent<bullet> ().transform.localPosition.y);
+				b.GetComponent<bullet> ().transform.localScale = new Vector3 (1f, 1f, 1f);
+				b.GetComponent<bullet> ().transform.parent = null;
+				StartCoroutine (goBullet (b));
+			}
 		}
 	}
 
@@ -224,7 +216,6 @@ public class enemy : character {
 
 	IEnumerator canShootCoroutine()
 	{
-		Debug.Log("yolo");
 		canShoot = false;
 		yield return new WaitForSeconds(fireRate);
 		canShoot = true;

@@ -21,7 +21,7 @@ public class hero : character {
 		currentWeapon = null;
 		animLegs  = this.foot.GetComponent<Animator>();
 		rb = this.GetComponent<Rigidbody2D>();
-		maxSpeed = 5.0f;
+		maxSpeed = 6.0f;
 	}
 
 	void FixedUpdate()

@@ -6,6 +6,7 @@ public class bullet : MonoBehaviour {
 	public Rigidbody2D	rb;
 	private float		speed = 20f;
 	public bool			isShot = false;
+	private	float		margin = 0.5f;
 
 	// Use this for initialization
 	void Start () {
@@ -14,7 +15,6 @@ public class bullet : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
 	}
 
 	void OnTriggerStay2D(Collider2D col)
