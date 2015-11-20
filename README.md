@@ -1,4 +1,4 @@
-# Hotline_Miami_repro
+# [Unity 2D] Hotline_Miami_repro
 
 Reproduction of Hotline Miami for a school project. Made in a team of two in 2 days. In this project, 
 we had to recreate the famous indie Game Hotline Miami. This meant creating the intense die and retry 
