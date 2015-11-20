@@ -10,6 +10,7 @@ gameplay of the original game. Among others things, those main points were imple
 - If the player shoots, the enemies in a large area are alerted and come rushing to him.
 
 ![Alt text](./cover/hotline_miami_repro_screen1.png "hotline miami screenshot 1")
+
 ![Alt text](./cover/hotline_miami_repro_screen2.png "hotline miami screenshot 2")
 
 All graphical assets were provided by the school for educational purposes. All Hotline Miami copyrights belongs to their respective owners.
