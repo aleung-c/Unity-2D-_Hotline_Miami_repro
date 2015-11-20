@@ -1,6 +1,6 @@
 # [Unity 2D] Hotline_Miami_repro
 
-Reproduction of Hotline Miami for a school project. Made in a team of two in 2 days. In this project, 
+Reproduction of Hotline Miami for a Unity school project. Made in a team of two in 2 days. In this project, 
 we had to recreate the famous indie Game Hotline Miami. This meant creating the intense die and retry 
 gameplay of the original game. Among others things, those main points were implemented:
 - Main character gameplay, aiming with the mouse.
